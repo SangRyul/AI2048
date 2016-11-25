@@ -1,0 +1,39 @@
+#include<stdio.h>
+#include<Windows.h>
+#include<conio.h>
+
+
+
+
+
+void PrintUI(void){
+	printf("¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á \n");
+	printf("¡á                                            ¡á \n");
+	printf("¡á         <2048>                             ¡á \n");
+	printf("¡á                                            ¡á \n");
+	printf("¡á         1. HumanRun                        ¡á \n");
+	printf("¡á         2. AIRUN                           ¡á \n");
+	printf("¡á         3. MAKER                           ¡á \n");
+	printf("¡á         4. quit                            ¡á \n");
+	printf("¡á                                            ¡á \n");
+	printf("¡á                                            ¡á \n");
+	printf("¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á \n");
+}
+
+void gotoxy(int  x, int  y)
+{
+	COORD coord;
+	coord.X = x;
+	coord.Y = y;
+	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
+
+} // ÁÂÇ¥ Âï¾îÁÖ±â UI
+
+void HumanRunUI(void){
+	
+
+}
+
+void AIRunUI(void){
+
+}
