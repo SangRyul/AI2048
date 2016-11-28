@@ -2,7 +2,8 @@
 #include<Windows.h>
 #include<conio.h>
 
-
+#define RowNumber 4
+#define ColNumber 4
 
 
 
@@ -37,3 +38,5 @@ void HumanRunUI(void){
 void AIRunUI(void){
 
 }
+
+
