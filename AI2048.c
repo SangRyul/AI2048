@@ -13,6 +13,8 @@
 #define ColNumber 4
 
 int Board[RowNumber][ColNumber] = { 0, };
+
+//test 조작
 int MemoryBoard[RowNumber][ColNumber]; // 움직임의 이동을 파악하기 위한 메모제이션
 int Randomtable[10] = { 2, 2, 2, 2, 2, 4, 2, 2, 2, 2 };
 void PrintBoard(void){
@@ -64,12 +66,127 @@ void RandomNumber(void){
 	}
 
 }
-void UpKey(void){
+int UpKey(void){
+
+
+	int movement = 0;
+	for (int i = 0; i < RowNumber; i++) {
+		for (int j = 0; j < ColNumber; j++) {
+			MemoryBoard[i][j] = Board[i][j];
+		}
+	}
+
+	for (int i = 0; i < ColNumber; i++) {
+
+		for (int j = RowNumber - 1; j >0; j--) {
+
+			if ((Board[j][i] != Board[j-1][i]) && (Board[j-1][i] != 0)) {
+				;
+			}
+			else if (Board[j-1][i] == 0) {
+				Board[j-1][i] = Board[j][i];
+				Board[j][i] = 0;
+
+
+
+			}
+			else if (Board[j][i] == Board[j-1][i]) {
+				Board[j][i] = 0;
+				Board[j-1][i] = 2 * Board[j-1][i];
+
+
+				if (j <= 2) {
+					Board[j][i] = Board[j+1][i];
+					Board[j+1][i] = 0;
+				}
+				break;
+			}
+		}
+
+		for (int j = ColNumber - 1; j>0; j--) {
+			if (Board[j-1][i] == 0) {
+				Board[j-1][i] = Board[j][i];
+				Board[j][i] = 0;
+
+			}
+		}
+	}
+
+
+
+	for (int i = 0; i < RowNumber; i++) {
+		for (int j = 0; j < ColNumber; j++) {
+			if (MemoryBoard[i][j] != Board[i][j]) {
+				movement++;
+				return movement;
+			}
+		}
+	}
+
+	return movement;
+
+
+
+
 
 }
 int DownKey(void){
 
+	int movement = 0;
+	for (int i = 0; i < RowNumber; i++) {
+		for (int j = 0; j < ColNumber; j++) {
+			MemoryBoard[i][j] = Board[i][j];
+		}
+	}
+
+	for (int i = 0; i < ColNumber; i++) {
+
+		for (int j = 0; j <RowNumber - 1; j++) {
+
+			if ((Board[j][i] != Board[j + 1][i]) && (Board[j + 1][i] != 0)) {
+				;
+			}
+			else if (Board[j + 1][i] == 0) {
+				Board[j + 1][i] = Board[j][i];
+				Board[j][i] = 0;
+
+			}
+			else if (Board[j][i] == Board[j + 1][i]) {
+				Board[j][i] = 0;
+				Board[j + 1][i] = 2 * Board[j + 1][i];
+
+
+				if (j >= 1) {
+					Board[j][i] = Board[j - 1][i];
+					Board[j - 1][i] = 0;
+				}
+				break;
+
+			}
+
+		}
+		for (int j = 0; j < RowNumber - 1; j++) {
+			if (Board[j + 1][i] == 0) {
+				Board[j + 1][i] = Board[j][i];
+				Board[j][i] = 0;
+
+			}
+		}
+	}
+
 	
+
+	for (int i = 0; i < RowNumber; i++) {
+		for (int j = 0; j < ColNumber; j++) {
+			if (MemoryBoard[i][j] != Board[i][j]) {
+				movement++;
+				return movement;
+			}
+		}
+	}
+
+	return movement;
+
 
 
 
@@ -96,14 +213,18 @@ int RightKey(void){
 
 			}
 			else if (Board[i][j] == Board[i][j + 1]) {
-				Board[i][j] = 0;
-				Board[i][j + 1] = 2 * Board[i][j + 1];
-	
-				
-				if (j >= 1) {
-					Board[i][j] = Board[i][j - 1];
-					Board[i][j - 1] = 0;
+
+				if ((j==1||j==0) && (Board[i][j] == Board[i][j+2]) ) {
+
+					Board[i][j + 2] = 2 * Board[i][j];
+					Board[i][j +1] = Board[i][j];
+					Board[i][j] = 0;
 				}
+				else {
+					Board[i][j] = 0;
+					Board[i][j + 1] = 2 * Board[i][j + 1];
+				}
+
 				break;
 
 			}
@@ -165,6 +286,14 @@ int LeftKey(void){
 				break;
 			}
 		}
+
+		for (int j = ColNumber-1; j>0; j--) {
+			if (Board[i][j - 1] == 0) {
+				Board[i][j - 1] = Board[i][j];
+				Board[i][j] = 0;
+
+			}
+		}
 	}
 	for (int i = 0; i < RowNumber; i++){
 		for (int j = 0; j < ColNumber; j++){
@@ -191,10 +320,13 @@ int main(void){
 
 	if (iChar == 1){
 
+
 		system("cls");
 		for (int i = 0; i < 2; i++){
 			InitialNumber();
 		}
+		//test
+		Board[0][0] = Board[0][2] = Board[0][3] = 2;
 		
 		PrintBoard();
 
@@ -203,14 +335,17 @@ int main(void){
 
 
 				if ((_kbhit() ==0) && GetAsyncKeyState(VK_UP) < 0) {
-					UpKey();
+				
 					system("cls");
-					RandomNumber();
+					if (UpKey() > 0) {
+						RandomNumber();
+					}
 					PrintBoard();
-
+	
 
 				}
 				if ((_kbhit() == 0) && GetAsyncKeyState(VK_DOWN) < 0) {
+
 					system("cls");
 					if (DownKey() > 0){
 						RandomNumber();
