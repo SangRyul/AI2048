@@ -30,10 +30,7 @@ void gotoxy(int  x, int  y)
 
 } // абг╔ бО╬Наж╠Б UI
 
-void HumanRunUI(void){
-	
 
-}
 
 void AIRunUI(void){
 

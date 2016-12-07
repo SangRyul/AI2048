@@ -14,34 +14,32 @@
 
 int Board[RowNumber][ColNumber] = { 0, };
 
+
 //test 조작
 int MemoryBoard[RowNumber][ColNumber]; // 움직임의 이동을 파악하기 위한 메모제이션
 int Randomtable[10] = { 2, 2, 2, 2, 2, 4, 2, 2, 2, 2 };
 void PrintBoard(void){
+
 	for (int i = 0; i < RowNumber; i++){
+
+
 		for (int j = 0; j < ColNumber; j++){
-			if (Board[i][j] == 2) {
-				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 11);
-				printf("%4d", Board[i][j]);
+			for (int k = 1; k <= 12; k++){
+				if (Board[i][j] == 0) {
+					SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
+				}
+				else if (Board[i][j] == (int)pow(2, k)) {
+					SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), k+1);
+				}
 			}
-			else if (Board[i][j] == 4) {
-				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 12);
-				printf("%4d", Board[i][j]);
-			}
-			else if (Board[i][j] == 8) {
-				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 13);
-				printf("%4d", Board[i][j]);
-			}
-			else {
-				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
-				printf("%4d", Board[i][j]);
-				//컬러 밖으로빼기
-			}
+			printf("%4d", Board[i][j]);
 		}
 		printf("\n");
 		printf("\n");
+	
 	}
 }
+
 
 void InitialNumber(void){
 	
@@ -313,11 +311,14 @@ int LeftKey(void){
 
 
 int main(void){
+	system("title AI2048");
+
+
 	int iChar;
 	srand(time(NULL));
 	PrintUI();
 	scanf("%d", &iChar);
-
+	system("mode con:cols=20 lines=10");
 	if (iChar == 1){
 
 
@@ -326,7 +327,7 @@ int main(void){
 			InitialNumber();
 		}
 		//test
-		Board[0][0] = Board[0][2] = Board[0][3] = 2;
+		//Board[0][0] = Board[0][2] = Board[0][3] = 2;
 		
 		PrintBoard();
 
